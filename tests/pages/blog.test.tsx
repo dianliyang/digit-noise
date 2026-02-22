@@ -54,3 +54,9 @@ test("each post links to its slug URL", () => {
     "/blog/post-one"
   );
 });
+
+test("renders explicit language switch for blog index", () => {
+  render(<BlogPage />);
+  expect(screen.getByRole("link", { name: "EN" })).toHaveAttribute("href", "/blog");
+  expect(screen.getByRole("link", { name: "中文" })).toHaveAttribute("href", "/zh/blog");
+});

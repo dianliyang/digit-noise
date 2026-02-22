@@ -47,6 +47,44 @@ test("getBlogSlugs ignores non-markdown files", () => {
   expect(getBlogSlugs()).toEqual(["test-post"]);
 });
 
+test("getBlogSlugs reads locale-specific directory", () => {
+  const EN_POST = `---\ntitle: English Post\nexcerpt: English.\n---\nContent\n`;
+  const ZH_POST = `---\ntitle: 中文文章\nslug: english-post\nexcerpt: 中文。\n---\n内容\n`;
+
+  mockFs.readdirSync.mockImplementation((dir: unknown) => {
+    const resolved = String(dir);
+    if (resolved.endsWith("/content/blog/zh")) return ["zh.md"] as any;
+    if (resolved.endsWith("/content/blog/en")) return ["en.md"] as any;
+    return [] as any;
+  });
+  mockFs.readFileSync.mockImplementation((fp: unknown) => {
+    const resolved = String(fp);
+    if (resolved.endsWith("/zh/zh.md")) return ZH_POST as any;
+    if (resolved.endsWith("/en/en.md")) return EN_POST as any;
+    return MOCK_POST as any;
+  });
+
+  expect(getBlogSlugs("zh")).toEqual(["english-post"]);
+  expect(getBlogSlugs("en")).toEqual(["english-post"]);
+});
+
+test("getBlogSlugs falls back to legacy content/blog for en", () => {
+  const LEGACY_POST = `---\ntitle: Legacy Post\nexcerpt: Legacy.\n---\nContent\n`;
+  mockFs.readdirSync.mockImplementation((dir: unknown) => {
+    const resolved = String(dir);
+    if (resolved.endsWith("/content/blog/en")) return [] as any;
+    if (resolved.endsWith("/content/blog")) return ["legacy.md"] as any;
+    return [] as any;
+  });
+  mockFs.readFileSync.mockImplementation((fp: unknown) => {
+    const resolved = String(fp);
+    if (resolved.endsWith("/content/blog/legacy.md")) return LEGACY_POST as any;
+    return MOCK_POST as any;
+  });
+
+  expect(getBlogSlugs("en")).toEqual(["legacy-post"]);
+});
+
 // getBlogPost
 test("getBlogPost finds post by title-derived slug", () => {
   expect(getBlogPost("test-post").title).toBe("Test Post");
@@ -90,6 +128,45 @@ test("getBlogPost throws when required frontmatter fields are missing", () => {
 
 test("getBlogPost throws when no post matches slug", () => {
   expect(() => getBlogPost("nonexistent")).toThrow("No post found");
+});
+
+test("getBlogPost uses locale-specific source files", () => {
+  const EN_POST = `---\ntitle: English Post\nslug: shared-post\nexcerpt: English excerpt.\n---\nEnglish body\n`;
+  const ZH_POST = `---\ntitle: 中文文章\nslug: shared-post\nexcerpt: 中文摘要。\n---\n中文正文\n`;
+  mockFs.readdirSync.mockImplementation((dir: unknown) => {
+    const resolved = String(dir);
+    if (resolved.endsWith("/content/blog/zh")) return ["zh.md"] as any;
+    if (resolved.endsWith("/content/blog/en")) return ["en.md"] as any;
+    return ["post.md"] as any;
+  });
+  mockFs.readFileSync.mockImplementation((fp: unknown) => {
+    const resolved = String(fp);
+    if (resolved.endsWith("/zh/zh.md")) return ZH_POST as any;
+    if (resolved.endsWith("/en/en.md")) return EN_POST as any;
+    return MOCK_POST as any;
+  });
+
+  expect(getBlogPost("shared-post", "zh").excerpt).toBe("中文摘要。");
+  expect(getBlogPost("shared-post", "en").excerpt).toBe("English excerpt.");
+});
+
+test("getBlogPost adds spacing between Chinese and Latin text for zh locale", () => {
+  const ZH_POST = `---\ntitle: APS材料准备\nslug: shared-post\nexcerpt: 准备繁琐的APS材料。\n---\n准备繁琐的APS材料。\n`;
+  mockFs.readdirSync.mockImplementation((dir: unknown) => {
+    const resolved = String(dir);
+    if (resolved.endsWith("/content/blog/zh")) return ["zh.md"] as any;
+    return [] as any;
+  });
+  mockFs.readFileSync.mockImplementation((fp: unknown) => {
+    const resolved = String(fp);
+    if (resolved.endsWith("/zh/zh.md")) return ZH_POST as any;
+    return MOCK_POST as any;
+  });
+
+  const post = getBlogPost("shared-post", "zh");
+  expect(post.title).toBe("APS 材料准备");
+  expect(post.excerpt).toBe("准备繁琐的 APS 材料。");
+  expect(post.content).toContain("准备繁琐的 APS 材料。");
 });
 
 // getAllBlogPosts

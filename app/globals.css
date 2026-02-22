@@ -5,6 +5,15 @@ body {
   min-height: 100%;
 }
 
+@supports (text-autospace: ideograph-alpha) {
+  :lang(zh),
+  :lang(zh-Hans),
+  :lang(zh-Hant),
+  :lang(ja) {
+    text-autospace: ideograph-alpha ideograph-numeric;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
