@@ -1,7 +1,9 @@
 import BlogPost from "../../components/blog/BlogPost";
 import { getBlogPost, getBlogSlugs } from "../../lib/blog";
 
-export function generateStaticParams() {
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
   return getBlogSlugs("en").map((slug) => ({ slug }));
 }
 
