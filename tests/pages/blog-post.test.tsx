@@ -11,7 +11,8 @@ jest.mock("../../app/lib/blog", () => ({
   getBlogPost: jest.fn(() => ({
     slug: "test-post",
     title: "Test Post Title",
-    date: "March 1, 2025",
+    createdAt: "March 1, 2025",
+    updatedAt: "June 15, 2025",
     excerpt: "Test excerpt.",
     content: "<p>Test body content.</p><h2>A heading</h2>",
   })),
@@ -32,7 +33,7 @@ test("renders post title as h1", async () => {
   ).toBeInTheDocument();
 });
 
-test("renders post date", async () => {
+test("renders post createdAt", async () => {
   await renderPost();
   expect(screen.getByText("March 1, 2025")).toBeInTheDocument();
 });
@@ -47,4 +48,9 @@ test("renders back to blog link", async () => {
   expect(
     screen.getByRole("link", { name: /back to blog/i })
   ).toHaveAttribute("href", "/blog");
+});
+
+test("renders updated at footer", async () => {
+  await renderPost();
+  expect(screen.getByText(/updated june 15, 2025/i)).toBeInTheDocument();
 });

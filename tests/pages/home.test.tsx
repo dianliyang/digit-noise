@@ -6,17 +6,17 @@ test("renders headline", () => {
   expect(
     screen.getByRole("heading", {
       level: 1,
-      name: /i design and build digital spaces/i,
+      name: /i design and build digital experiences/i,
     })
   ).toBeInTheDocument();
 });
 
 test("renders location copy", () => {
   render(<HomePage />);
-  expect(screen.getByText(/currently based in kiel/i)).toBeInTheDocument();
+  expect(screen.getByText(/currently based in germany/i)).toBeInTheDocument();
 });
 
-test("renders quiet web copy", () => {
+test("renders bio copy", () => {
   render(<HomePage />);
-  expect(screen.getByText(/making the web a quieter place/i)).toBeInTheDocument();
+  expect(screen.getByText(/reducing unnecessary complexity/i)).toBeInTheDocument();
 });

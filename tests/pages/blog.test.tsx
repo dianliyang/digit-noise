@@ -12,14 +12,14 @@ jest.mock("../../app/lib/blog", () => ({
     {
       slug: "post-one",
       title: "Post One",
-      date: "January 1, 2025",
+      createdAt: "January 1, 2025",
       excerpt: "First excerpt.",
       content: "<p>First content.</p>",
     },
     {
       slug: "post-two",
       title: "Post Two",
-      date: "February 1, 2025",
+      createdAt: "February 1, 2025",
       excerpt: "Second excerpt.",
       content: "<p>Second content.</p>",
     },

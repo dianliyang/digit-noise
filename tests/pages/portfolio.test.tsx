@@ -8,21 +8,17 @@ test("renders Selected Works heading", () => {
   ).toBeInTheDocument();
 });
 
-test("renders all three portfolio items", () => {
+test("renders portfolio item title", () => {
   render(<PortfolioPage />);
-  expect(screen.getByText("Typeface Analytics")).toBeInTheDocument();
-  expect(screen.getByText("Monochrome Theme")).toBeInTheDocument();
-  expect(screen.getByText("Ockham")).toBeInTheDocument();
+  expect(screen.getByText("Upcoming Project")).toBeInTheDocument();
 });
 
-test("renders role labels", () => {
+test("renders role label", () => {
   render(<PortfolioPage />);
   expect(screen.getByText("Design & Engineering")).toBeInTheDocument();
-  expect(screen.getByText("Creator")).toBeInTheDocument();
-  expect(screen.getByText("Lead Developer")).toBeInTheDocument();
 });
 
-test("renders year for each item", () => {
+test("renders year for item", () => {
   render(<PortfolioPage />);
-  expect(screen.getByText("2025")).toBeInTheDocument();
+  expect(screen.getByText("2026")).toBeInTheDocument();
 });
