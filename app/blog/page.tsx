@@ -12,7 +12,7 @@ export default function BlogPage() {
           <article key={post.slug} className="group">
             <Link href={`/blog/${post.slug}`} className="block">
               <time className="mb-3 block text-sm font-medium uppercase tracking-widest">
-                {post.date}
+                {post.createdAt}
               </time>
               <h3 className="mb-3 text-2xl font-medium leading-snug tracking-tight decoration-2 underline-offset-4 group-hover:underline md:text-3xl">
                 {post.title}

@@ -25,7 +25,7 @@ export default async function BlogPostPage({
       <article>
         <header className="mb-12">
           <time className="mb-4 block text-sm font-medium uppercase tracking-widest">
-            {post.date}
+            {post.createdAt}
           </time>
           <h1 className="text-4xl font-medium leading-tight tracking-tighter md:text-5xl">
             {post.title}
@@ -36,6 +36,12 @@ export default async function BlogPostPage({
           className="prose prose-lg prose-p:leading-loose max-w-none md:prose-xl"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+
+        <div className="mt-12 flex justify-end">
+          <span className="text-sm text-gray-600">
+            Updated {post.updatedAt}
+          </span>
+        </div>
       </article>
     </div>
   );
