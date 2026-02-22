@@ -7,7 +7,7 @@
     "build": "next build",
     "lint": "next lint",
     "test": "jest",
-    "deploy": "next build && wrangler pages deploy out"
+    "deploy": "next build && wrangler pages deploy"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
