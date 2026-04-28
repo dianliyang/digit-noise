@@ -18,7 +18,10 @@ export default async function ZhBlogPostPage({
   try {
     post = getBlogPost(slug, "zh");
   } catch (error) {
-    if (error instanceof Error && error.message.startsWith("No post found for slug:")) {
+    if (
+      error instanceof Error &&
+      error.message.startsWith("No post found for slug:")
+    ) {
       notFound();
     }
     throw error;

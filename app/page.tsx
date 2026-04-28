@@ -10,7 +10,7 @@ export default function HomePage() {
           complexity and curating simple, clear digital experiences.
         </p>
         <p>
-          I’m currently based in Germany, pursuing an MSc in Computer Science.
+          I’m currently based in Germany, pursuing a MSc in Computer Science.
         </p>
       </div>
     </div>
