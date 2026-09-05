@@ -6,9 +6,10 @@
     "dev": "next dev --webpack",
     "dev:turbo": "next dev",
     "build": "next build",
+    "build:pages": "NEXT_STATIC_EXPORT=true next build",
     "lint": "next lint",
     "test": "jest",
-    "deploy": "next build && npx wrangler pages deploy out"
+    "deploy": "npm run build:pages && npx wrangler pages deploy out"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

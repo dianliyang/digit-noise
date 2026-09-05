@@ -4,7 +4,7 @@ Minimalist portfolio for Dianli Yang. Built with Next.js and Tailwind CSS.
 
 ## Stack
 
-- Next.js 16 (App Router, static export)
+- Next.js 16 (App Router)
 - React 19
 - Tailwind CSS 4
 - TypeScript
@@ -22,7 +22,7 @@ npm test
 ## Deploy
 
 ```bash
-npm run deploy    # next build && wrangler pages deploy out
+npm run deploy    # static build, then wrangler pages deploy out
 ```
 
 First-time setup:
@@ -31,4 +31,6 @@ First-time setup:
 wrangler pages project create digit-noise
 ```
 
-Or connect the GitHub repo in the Cloudflare dashboard with build command `npm run build` and output directory `out`.
+Or connect the GitHub repo in the Cloudflare dashboard with build command
+`npm run build:pages` and output directory `out`. Do not use
+`@cloudflare/next-on-pages`; this project publishes a static export directly.
