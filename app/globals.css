@@ -48,9 +48,33 @@ body {
   line-height: 1.75;
 }
 
+.prose a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.08em;
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 0.2em;
+}
+
+.prose h1,
+.prose h2,
 .prose h3 {
   margin-top: 3.5rem;
   margin-bottom: 1.5rem;
-  font-size: 1.5rem;
   color: #000000;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.prose h1 {
+  font-size: 2.25rem;
+}
+
+.prose h2 {
+  font-size: 1.875rem;
+}
+
+.prose h3 {
+  font-size: 1.5rem;
 }

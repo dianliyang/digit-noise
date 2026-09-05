@@ -7,14 +7,21 @@ export default function BlogIndex({
   basePath,
   locale,
   lang,
+  heading,
 }: {
   posts: BlogPost[];
   basePath: string;
   locale: BlogLocale;
   lang: string;
+  heading?: string;
 }) {
   return (
     <div className="animate-fade-in" lang={lang}>
+      {heading && (
+        <h2 className="mb-12 text-2xl font-medium tracking-tight">
+          {heading}
+        </h2>
+      )}
       <BlogLanguageSwitch locale={locale} />
       <div className="flex flex-col gap-12">
         {posts.map((post) => (

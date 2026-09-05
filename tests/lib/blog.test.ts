@@ -116,6 +116,14 @@ test("getBlogPost converts markdown body to HTML", () => {
   expect(getBlogPost("test-post").content).toContain("<strong>content</strong>");
 });
 
+test("getBlogPost converts Markdown headings to HTML headings", () => {
+  mockFs.readFileSync.mockReturnValue(
+    `---\ntitle: Test Post\nexcerpt: A test excerpt.\n---\n\n# Section title\n` as any,
+  );
+
+  expect(getBlogPost("test-post").content).toContain("<h1>Section title</h1>");
+});
+
 test("getBlogPost throws for slug with path traversal characters", () => {
   expect(() => getBlogPost("../secret")).toThrow("Invalid slug");
   expect(() => getBlogPost("foo/bar")).toThrow("Invalid slug");
